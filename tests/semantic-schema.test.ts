@@ -17,6 +17,8 @@ describe("semantic tool schema bounds", () => {
 
 	it("emits provider-compatible patterns without lookaround", () => {
 		expect(JSON.stringify(toolParameters)).not.toMatch(/\(\?(?:[=!]|<[=!])/);
+		// Strict gateways (e.g. RE2-based) reject `\uXXXX` escape text inside patterns.
+		expect(JSON.stringify(toolParameters)).not.toMatch(/"pattern":"[^"]*\\\\u/);
 	});
 
 	it("accepts only fixed diagnostic incident fields", () => {
